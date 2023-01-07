@@ -1,16 +1,12 @@
 #!/usr/bin/python3
-"""This is the city class"""
+"""City module"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship, backref
 
 
 class City(BaseModel, Base):
-    """This is the class for City
-    Attributes:
-        state_id: The state id
-        name: input name
-    """
+    """City class"""
     __tablename__ = "cities"
     name = Column(String(128), nullable=False)
     state_id = Column(String(60),
@@ -21,4 +17,3 @@ class City(BaseModel, Base):
         cascade="all",
         backref=backref("cities", cascade="all"),
         passive_deletes=True)
-    # TODO: we need single_parent=True here?

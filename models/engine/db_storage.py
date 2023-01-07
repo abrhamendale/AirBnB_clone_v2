@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-"""Module for DBstorage class"""
+"""DBstorage module"""
 from os import getenv
 from sqlalchemy import create_engine, MetaData
 
 
 class DBStorage():
-    """Class for database storage"""
+    """DBStorage class"""
     __engine = None
     __session = None
 
@@ -21,7 +21,7 @@ class DBStorage():
             pool_pre_ping=True)
 
     def all(self, cls=None):
-        """returns all objects of cls"""
+        """Returns all objects of cls type"""
         from models.state import State
         from models.city import City
         from models.user import User
@@ -46,23 +46,23 @@ class DBStorage():
         return {type(v).__name__ + "." + v.id: v for v in rows}
 
     def new(self, obj):
-        """add object to db"""
+        """Adds object to db"""
         if not obj:
             return
         self.__session.add(obj)
 
     def save(self):
-        """commit changes to db"""
+        """Saves changes to db"""
         self.__session.commit()
 
     def delete(self, obj=None):
-        """delete obj from db"""
+        """Deletes obj from db"""
         if obj:
             self.__session.delete(obj)
             self.save()
 
     def reload(self):
-        """create all tables in the db"""
+        """Loads db data"""
         from models.base_model import Base
         from models.state import State
         from models.city import City
@@ -82,5 +82,5 @@ class DBStorage():
         self.__session = Session()
 
     def close(self):
-        """Thread specific storage"""
+        """Thread storage"""
         self.__session.close()

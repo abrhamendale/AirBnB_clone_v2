@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This is the place class"""
+"""Place module"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Float, Integer, ForeignKey, Table
 from sqlalchemy.orm import relationship, backref
@@ -21,20 +21,7 @@ if getenv("HBNB_TYPE_STORAGE") == "db":
 
 
 class Place(BaseModel, Base):
-    """This is the class for place
-    Attributes:
-        city_id: city id
-        user_id: user id
-        name: name input
-        description: string of description
-        number_rooms: number of room in int
-        number_bathrooms: number of bathrooms in int
-        max_guest: maximum guest in int
-        price_by_night:: pice for a staying in int
-        latitude: latitude in flaot
-        longitude: longitude in float
-        amenity_ids: list of Amenity ids
-    """
+    """Place class"""
     __tablename__ = "places"
     city_id = Column(String(60),
                      ForeignKey("cities.id", ondelete="CASCADE"),
@@ -80,21 +67,19 @@ class Place(BaseModel, Base):
     else:
         @property
         def reviews(self):
-            """Return list of review instances for file storage
-            matching place_id
-            """
+            """Return a list of review instances"""
             from models import storage
             return {k: v for k, v in storage.all().items()
                     if v.place_id == self.id}
 
         @property
         def amenities(self):
-            """returns list of amenity ids"""
+            """Returns a list of amenity ids"""
             from models import storage
             return self.amenity_ids
 
         @amenities.setter
         def amenities(self, obj):
-            """appends amenity id to amenity_ids"""
+            """Appends amenity id to amenity_ids"""
             if type(obj) is Amenity and obj.id not in self.amenity_ids:
                 self.amenity_ids.append(obj.id)

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This is the amenity class"""
+"""Amenity module"""
 from models.base_model import BaseModel, Base
 from models.place import Place
 from sqlalchemy import Column, String, Table, ForeignKey
@@ -8,10 +8,7 @@ from os import getenv
 
 
 class Amenity(BaseModel, Base):
-    """This is the class for Amenity
-    Attributes:
-        name: input name
-    """
+    """Amenity class"""
     __tablename__ = "amenities"
     name = Column(String(128),
                   nullable=False)

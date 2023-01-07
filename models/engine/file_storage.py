@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This is the file storage class for AirBnB"""
+"""This module defines a class to manage file storage for hbnb clone"""
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -11,20 +11,12 @@ from models.review import Review
 
 
 class FileStorage:
-    """This class serializes instances to a JSON file and
-    deserializes JSON file to instances
-    Attributes:
-        __file_path: path to the JSON file
-        __objects: objects will be stored
-    """
+    """This class manages storage of hbnb models in JSON format"""
     __file_path = "file.json"
     __objects = {}
 
     def delete(self, obj=None):
-        """deletes obj from __objects if it's inside
-        Args:
-            obj: given object
-        """
+        """deletes obj from __objects"""
         if not obj:
             return
         key = "{}.{}".format(type(obj).__name__, obj.id)
@@ -33,28 +25,19 @@ class FileStorage:
             self.save()
 
     def all(self, cls=None):
-        """returns a dictionary
-        Args:
-            cls: class type to filter return by
-        Return:
-            returns a dictionary of __object
-        """
+        """Returns a dictionary of models currently in storage"""
         if not cls:
             return self.__objects
         return {k: v for k, v in self.__objects.items() if type(v) == cls}
 
     def new(self, obj):
-        """sets __object to given obj
-        Args:
-            obj: given object
-        """
+        """Adds new object to storage dictionary"""
         if obj:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             self.__objects[key] = obj
 
     def save(self):
-        """serialize the file path to JSON file path
-        """
+        """Saves storage dictionary to file"""
         my_dict = {}
         for key, value in self.__objects.items():
             my_dict[key] = value.to_dict()
@@ -62,8 +45,7 @@ class FileStorage:
             json.dump(my_dict, f)
 
     def reload(self):
-        """serialize the file path to JSON file path
-        """
+        """Loads storage dictionary from file"""
         try:
             with open(self.__file_path, 'r', encoding="UTF-8") as f:
                 for key, value in (json.load(f)).items():
@@ -73,5 +55,5 @@ class FileStorage:
             pass
 
     def close(self):
-        """Thread specific storage"""
+        """Thread storage"""
         self.reload()
