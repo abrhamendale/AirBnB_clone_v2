@@ -3,16 +3,21 @@
 Web static module
 """
 from fabric.api import *
+from datetime import datetime
+
 
 def do_pack():
     """
     Generates a tgz archive of web_static
     """
-    run("mkdir -p versions")
-    d = web_static_$(date +'%Y%m%d%m%3S')
-    with cd ("/verions"):
-        arch = local("tar -czf eval(d) web_static tgz")
-    if arch.succeeded:
-        return '/versions/$(d)'
+    
+    fname = 'web_static' +\
+            datetime.now().strftime("%Y%m%d%H%M%S") + ".tgz"
+    dname = 'versions/'
+
+    local("mkdir -p " + dname)
+    chk = local("tar -cvzf {}{} web_static".format(dname, fname))
+    if chk.succeeded:
+        return (dname + fname)
     else:
-        return None
+        return (None)
