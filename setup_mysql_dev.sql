@@ -1,13 +1,12 @@
--- Creates the database hbnb_dev_db with specified paramenters
--- Create database
+-- Creates the hbnb_dev_db database
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
--- Creates user if doesn't exist
+-- Creates a user if it doesn't exist
 CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost';
--- Sets password for user
+-- Sets a password for the user
 SET PASSWORD FOR 'hbnb_dev'@'localhost' = 'hbnb_dev_pwd';
--- Grants privileges to user on database
+-- Grants privileges to a user on the database
 GRANT ALL PRIVILEGES ON hbnb_dev_db.* TO 'hbnb_dev'@'localhost';
--- Grants select privileges to user on performance_schema database
+-- Grants SELECT privileges to the user on performance_schema database
 GRANT SELECT ON performance_schema.* TO 'hbnb_dev'@'localhost';
--- Flush privileges
+-- Flushes privileges
 FLUSH PRIVILEGES;
