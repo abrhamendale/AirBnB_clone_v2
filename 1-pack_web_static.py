@@ -10,7 +10,7 @@ def do_pack():
     """
     Generates a tgz archive of web_static
     """
-    
+
     fname = 'web_static' +\
             datetime.now().strftime("%Y%m%d%H%M%S") + ".tgz"
     dname = 'versions/'
