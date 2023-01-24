@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """Web_static"""
-from fabric.contrib import files
-from fabric.api import env, put, run
+from fabric.api import *
+from fabric.operations import run, put, sudo
 import os
 
 env.hosts = ['54.242.195.19', '54.236.50.27']
-
+env.user = 'ubuntu'
+env.key_filename = '~/.ssh/school'
 
 def do_deploy(archive_path):
     """Deplos web_static on the web servers."""
@@ -17,7 +18,7 @@ def do_deploy(archive_path):
     arcname = path + slash
     try:
         put(archive_path, '/tmp')
-        run('sudo mkdir -p {}'.format(arcname))
+        run('sudo ~/.sshschool mkdir -p {}'.format(arcname))
         run('sudo tar -xzf /tmp/{}.tgz -C {}'.format(slash, arcname))
         run('sudo rm -f /tmp/{}.tgz'.format(slash))
         run('sudo mv {}/web_static/* {}/'.format(arcname, arcname))
@@ -26,4 +27,5 @@ def do_deploy(archive_path):
         run('sudo ln -s {} /data/web_static/current'.format(arcname))
         return True
     except ValueError:
+        local('echo "!!!!!"')
         return False
