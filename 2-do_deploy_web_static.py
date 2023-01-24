@@ -17,13 +17,13 @@ def do_deploy(archive_path):
     arcname = path + slash
     try:
         put(archive_path, '/tmp')
-        run('mkdir -p {}'.format(arcname))
-        run('tar -xzf /tmp/{}.tgz -C {}'.format(slash, arcname))
-        run('rm -f /tmp/{}.tgz'.format(slash))
-        run('mv {}/web_static/* {}/'.format(arcname, arcname))
-        run('rm -rf {}/web_static'.format(arcname))
-        run('rm -rf /data/web_static/current')
-        run('ln -s {} /data/web_static/current'.format(arcname))
+        run('sudo mkdir -p {}'.format(arcname))
+        run('sudo tar -xzf /tmp/{}.tgz -C {}'.format(slash, arcname))
+        run('sudo rm -f /tmp/{}.tgz'.format(slash))
+        run('sudo mv {}/web_static/* {}/'.format(arcname, arcname))
+        run('sudo rm -rf {}/web_static'.format(arcname))
+        run('sudo rm -rf /data/web_static/current')
+        run('sudo ln -s {} /data/web_static/current'.format(arcname))
         return True
-    except:
+    except ValueError:
         return False
