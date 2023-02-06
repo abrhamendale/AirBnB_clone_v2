@@ -24,10 +24,11 @@ def hello_c(user):
     return 'C %s' % user.replace("_", " ")
 
 
-@app.route('/python/(<user>)', strict_slashes=False)
+@app.route('/python', defaults={'user': 'is cool'})
+@app.route('/python/<user>')
 def hello_py(user):
     """Python function"""
-    return 'Python %s' % user.replace("_", " ")
+    return 'Python {}'.format(user.replace('_', ' '))
 
 
 if __name__ == "__main__":
