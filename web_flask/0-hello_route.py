@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+sudo !/usr/bin/python3
 """Hello route module."""
 
 
@@ -6,7 +6,7 @@ from flask import Flask
 app = Flask(__name__)
 
 
-@app.route('/', strict_slashes=False)
+@app.route('/airbnb-onepage/', strict_slashes=False)
 def hello_route():
     """Hello route function"""
     return 'Hello, HBNB!'
